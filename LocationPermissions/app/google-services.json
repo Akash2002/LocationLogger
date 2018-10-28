@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "982953938180",
+    "firebase_url": "https://statefair-d2825.firebaseio.com",
+    "project_id": "statefair-d2825",
+    "storage_bucket": "statefair-d2825.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:982953938180:android:f112e87e81bdc1d1",
+        "android_client_info": {
+          "package_name": "com.example.akash.locationpermissions"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "982953938180-fglt1hhfrj6budrrmsgko91dq19seut9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAS8GDeM3Rv4YkXvVBv2URWFrNv0hOt-ck"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

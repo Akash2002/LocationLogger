@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title> State Fair Project </title>
+<!-- <meta http-equiv="refresh" content="5" > -->
+<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+<script src="https://www.gstatic.com/firebasejs/3.6.9/firebase.js"></script>
+</head>
+<body>
+<nav class="navbar fixed-top navbar-toggleable-md navbar-light bg-faded">
+<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+<span class="navbar-toggler-icon"></span>
+</button>
+<a class="navbar-brand" href="#home">Home</a>
+<div class="collapse navbar-collapse" id="navbarSupportedContent">
+<ul class="navbar-nav mr-auto">
+<li class="nav-item">
+<a class="nav-link" href="#mytrips">My Trips<span class="sr-only">(current)</span></a>
+</li>
+<li class="nav-item">
+<a class = "nav-link" href="#searchMyTrip"> Search My Trip </a></li>
+<li class="nav-item">
+<a class="nav-link" href="#aboutme">About</a>
+</li>
+</ul>
+</div>
+</nav>
+<hr class="my-4">
+<div id = "home" class="jumbotron">
+<a class="display-3">My Trip Recorder</a>
+<p class="lead"> A killer IoT project that combines Mobile and Web Platforms that records user location data upon user input interaction.</p>
+<hr class="my-4">
+<p>The main software and programming languages used are:
+<ul class="list-group">
+<a href="https://developer.android.com/studio/index.html" class="list-group-item list-group-item-action">Android Studio</a><a href="https://www.oracle.com/java/index.html" class="list-group-item list-group-item-action">Java</a>
+<a href="https://www.javascript.com/" class="list-group-item list-group-item-action">Javascript</a>
+<a href="http://www.json.org/" class="list-group-item list-group-item-action">JSON</a>
+<a href="https://v4-alpha.getbootstrap.com/" class="list-group-item list-group-item-action">Bootstrap 4</a>
+<a href="http://html.com/" class="list-group-item list-group-item-action">HTML</a>
+<a href="https://firebase.google.com/" class="list-group-item list-group-item-action">Google Firebase</a>
+</ul>
+</p>
+<p class="lead">
+<button class="btn btn-outline-primary" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+Learn more</button>
+</p>
+<div class="collapse" id="collapseExample">
+<div class="card card-block">
+Android Studio is the official software by Google for devoloping Android Studio. It uses Java for development. Android Studio is one of the main applications used with this project as it helps get the location of the user. The location is captured and entered into Firebase. Then, this website is made using Bootstrap and HTML. Javascript is used to derive the location data and to display it to the user.
+</div>
+</div>
+</div>
+<div id = "searchMyTrip" class="jumbotron">
+<a class = "display-4"> Search My Trip</a>
+<hr class = "my-4">
+<div class="col-lg-7">
+  <div class="form-group row">
+    <label for="example-date-input" class="col-2 col-form-label">Date</label>
+    <div class="col-10">
+      <input class="form-control" type="date" value="" id="date-input">
+    </div>
+  </div>
+<button id = "searchButton" onclick = "buttonClick()" class="btn btn-outline-primary" type="button">Search!</button>
+</span>
+<hr class = "my-4">
+</div>
+<table class = "table"> 
+<thead class = "thead-inverse">
+  <tr> 
+    <th> Trip Name </th>
+    <th> From Address </th>
+    <th> From Time </th>
+    <th> To Address </th>
+    <th> To Time </th>
+  </tr>
+</thead>
+<tbody  id = "searchTable">
+</tbody>
+</table>
+</div>
+</div>
+<hr class = "my-4"> 
+<div id = "mytrips" class = "jumbotron">
+  <h3 class = "display-4">All my Trips</h3>
+  <hr class = "my-4">
+  <table class = "table table-inverse"> 
+    <thead class = "thead-inverse"> 
+    <tr> 
+      <th> Trip Name </th>
+      <th> From Address </th>
+      <th> From Time </th>
+      <th> To Address </th>
+      <th> To Time </th>
+    </tr>
+    </thead>
+    <tbody  id = "table">
+    </tbody>
+  </table>
+</div>
+</div>
+<script>
+
+var config = {
+  apiKey: "AIzaSyDyfLUoLCsP88MBK_-qsQ-ikdQ7CvAmdTs",
+  authDomain: "searchmytripstatefair.firebaseapp.com",
+  databaseURL: "https://searchmytripstatefair.firebaseio.com",
+  storageBucket: "searchmytripstatefair.appspot.com",
+  messagingSenderId: "346536267503"
+};
+var firebaseInclusion = document.createElement('script');
+firebaseInclusion.setAttribute('src',"https://www.gstatic.com/firebasejs/3.6.9/firebase.js");
+
+firebase.initializeApp(config);
+
+const dbRef = firebase.database().ref();
+function buttonClick(){
+
+    var searchTable = document.getElementById("searchTable");
+    searchTable.innerHTML = ""; 
+    const dbRef = firebase.database().ref();
+      dbRef.once('value',function(snapshot){
+      snapshot.forEach(function(childSnapshot) {
+
+        var dateInputPicker = document.getElementById('date-input');
+        var dateInput = dateInputPicker.value;
+        var childKey = childSnapshot.key;
+        var childData = childSnapshot.val();
+        var fromAddress = "From-Address";
+        var fromDate = "From-Date";
+        var fromLatitude = "From-Latitude";
+        var fromLongitude = "From-Longitude";
+        var fromTime = "From-Time";
+        var toAddress = "To-Address";
+        var toLatitude = "To-Latitude";
+        var toLongitude = "To-Longitude";
+        var toTime = "To-Time";
+          var i = 0;
+          var row2 = searchTable.insertRow(i);
+          var x2 = row2.insertCell(0);
+          var x12= row2.insertCell(1);
+          var x22= row2.insertCell(2);
+          var x32 = row2.insertCell(3);
+          var x42 = row2.insertCell(4);
+        if (fn_DateCompare (stringToDate(dateInput,"yyyy-MM-dd","-") , stringToDate(childData[fromDate],"dd-mmm-yyyy","-")) == 0 )
+        {
+          x2.innerHTML = childKey;
+          x12.innerHTML = childData[fromAddress];
+          x22.innerHTML = childData[fromTime];
+          x32.innerHTML = childData[toAddress];
+          x42.innerHTML = childData[toTime]; 
+          i++;
+        }
+      });
+    });
+}
+    dbRef.once('value',function(snapshot){
+      snapshot.forEach(function(childSnapshot) {
+        var i=0;
+        var dateInputPicker = document.getElementById('date-input');
+        var childKey = childSnapshot.key;
+        var childData = childSnapshot.val();
+        var fromAddress = "From-Address";
+        var fromDate = "From-Date";
+        var fromLatitude = "From-Latitude";
+        var fromLongitude = "From-Longitude";
+        var fromTime = "From-Time";
+        var toAddress = "To-Address";
+        var toLatitude = "To-Latitude";
+        var toLongitude = "To-Longitude";
+        var toTime = "To-Time";
+        var table = document.getElementById("table");
+        var row = table.insertRow(i);
+        var x= row.insertCell(0);
+        var x1= row.insertCell(1);
+        var x2= row.insertCell(2);
+        var x3 = row.insertCell(3);
+        var x4 = row.insertCell(4);
+        x.innerHTML = childKey;
+        x1.innerHTML = childData[fromAddress];
+        x2.innerHTML = childData[fromTime];
+        x3.innerHTML = childData[toAddress];
+        x4.innerHTML = childData[toTime];
+        i++;
+      });
+    });
+
+// setTimeout(function(){
+//    window.location.reload(30);
+// }, 5000);
+function stringToDate(_date,_format,_delimiter)
+{
+  var monthIndex;
+  var formatLowerCase=_format.toLowerCase();
+  var formatItems=formatLowerCase.split(_delimiter);
+  var dateItems=_date.split(_delimiter);
+  if ( formatItems.indexOf("mm") < 1 )
+  { 
+      var monthIndex=formatItems.indexOf("mmm");
+      month = getMonth(dateItems[monthIndex])-1;
+  }
+  else
+  {
+      var monthIndex=formatItems.indexOf("mm"); 
+      var month=parseInt(dateItems[monthIndex]);
+      month-=1;
+  }
+  var dayIndex=formatItems.indexOf("dd");
+  var yearIndex=formatItems.indexOf("yyyy");
+  
+  var formatedDate = new Date(dateItems[yearIndex],month,dateItems[dayIndex]);
+  return formatedDate;
+}
+function getMonth(month) {
+  d = new Date().toString().split(" ")
+  d[1] = month
+  d = new Date(d.join(' ')).getMonth()+1
+  if(!isNaN(d)) {
+    return d
+  }
+  return -1;
+}
+function fn_DateCompare(DateA, DateB) {     // this function is good for dates > 01/01/1970
+
+    var a = new Date(DateA);
+    var b = new Date(DateB);
+
+    var msDateA = Date.UTC(a.getFullYear(), a.getMonth()+1, a.getDate());
+    var msDateB = Date.UTC(b.getFullYear(), b.getMonth()+1, b.getDate());
+
+    if (parseFloat(msDateA) < parseFloat(msDateB))
+      return -1;  // lt
+    else if (parseFloat(msDateA) == parseFloat(msDateB))
+      return 0;  // eq
+    else if (parseFloat(msDateA) > parseFloat(msDateB))
+      return 1;  // gt
+    else
+      return null;  // error
+}
+</script>
+</body>
+</body>
+</html>

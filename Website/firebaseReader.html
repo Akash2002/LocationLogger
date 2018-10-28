@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title></title>
+<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+<script src="https://www.gstatic.com/firebasejs/3.6.9/firebase.js"></script>
+</head>
+<body>
+<nav class='navbar navbar-toggleable-md navbar-light'>
+<button class='navbar-toggler navbar-toggler-right' type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+<span class="navbar-toggler-icon"></span>
+</button>
+<a class="navbar-brand" href="MyTripRecorder.html">Home</a>
+<div class="collapse navbar-collapse" id="navbarSupportedContent">
+<ul class="navbar-nav mr-auto">
+<li class="nav-item">
+<a class="nav-link" href="firebaseReader.html">My Trips<span class="sr-only">(current)</span></a>
+</li>
+<li class="nav-item">
+<a class = "nav-link" href="searchMyTrip.html"> Search My Trip </a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="aboutme.html">About</a>
+</li>
+</ul>
+</div>
+</nav>
+
+<script>
+var config = {
+  apiKey: "AIzaSyDyfLUoLCsP88MBK_-qsQ-ikdQ7CvAmdTs",
+  authDomain: "searchmytripstatefair.firebaseapp.com",
+  databaseURL: "https://searchmytripstatefair.firebaseio.com",
+  storageBucket: "searchmytripstatefair.appspot.com",
+  messagingSenderId: "346536267503"
+};
+
+firebase.initializeApp(config);
+
+const dbRef = firebase.database().ref();
+
+var htmlCode = "<table class = 'table'> <thead> <tr> <th> Trip Name </th> <th> Address-From </th> <th> Time </th> <th> Date </th>  </tr> </thead>";
+document.write(htmlCode);
+
+dbRef.once('value',function(snapshot){
+  snapshot.forEach(function(childSnapshot) {
+
+     var childKey = childSnapshot.key;
+     var childData = childSnapshot.val();
+     var counter = 0;
+     var fromAddress = "From-Address";
+     var fromDate = "From-Date";
+     var fromLatitude = "From-Latitude";
+     var fromLongitude = "From-Longitude";
+     var fromTime = "From-Time";
+     var toAddress = "To-Address";
+     var toLatitude = "To-Latitude";
+     var toLongitude = "To-Longitude";
+     var toTime = "To-Time";
+     var completeData = childKey + " " + childData[fromAddress] + " " + childData[fromDate] + " " + childData[fromLatitude] +
+     " " + childData[fromLongitude] + " " + childData[fromTime] + " " + childData[toAddress] + " "
+     + childData[toLatitude] + " " + childData[toLongitude] + " " + childData[toTime];
+     console.log(completeData);
+
+     var script1 = document.createElement('script');
+
+     script1.setAttribute('src',"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js");
+
+     document.head.appendChild(script1);
+
+      var cssId = 'css';  // you could encode the css path itself to generate id..
+      if (!document.getElementById(cssId)) {
+          var head  = document.getElementsByTagName('head')[0];
+          var link  = document.createElement('link');
+          link.id   = cssId;
+          link.rel  = 'stylesheet';
+          link.type = 'text/css';
+          link.href = "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css";
+          link.media = 'all';
+          head.appendChild(link);
+      }
+
+      var cssId2 = 'css';  // you could encode the css path itself to generate id..
+      if (!document.getElementById(cssId2)) {
+          var head  = document.getElementsByTagName('head')[0];
+          var link  = document.createElement('link');
+          link.id   = cssId;
+          link.rel  = 'stylesheet';
+          link.type = 'text/css';
+          link.href = "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" ;
+          link.media = 'all';
+          head.appendChild(link);
+      }
+      htmlCode += "<tbody> <tr> <tr> <td scope = 'row'>" + childKey + "</td> <td scope = 'row'>" + childData[fromAddress] + "<td scope = 'row'> " + childData[fromTime] + "<td scope = 'row'> " + childData[fromDate] + "</tr> </tbody>";
+      document.write(htmlCode);
+   });
+});
+
+</script>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.akash.locationpermissions.MainActivity"
+    android:background="@drawable/img">
+
+    <Button
+        android:text="Navigate"
+        android:layout_width="150dp"
+        android:textSize="18sp"
+        android:id="@+id/nav"
+        android:backgroundTint="@color/colorAccent"
+        android:layout_height="60dp"
+        android:layout_centerVertical="true"
+        android:layout_alignStart="@+id/tripName"
+        android:textColor="@color/cast_expanded_controller_progress_text_color" />
+
+    <Button
+        android:text="Finish"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
+        android:id="@+id/finish"
+        android:textSize="18sp"
+        android:backgroundTint="@color/colorAccent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/nav"
+        android:textColor="@color/cast_expanded_controller_progress_text_color" />
+
+    <EditText
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/tripName"
+        android:hint="Trip Name"
+        android:layout_width="200dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:text="Street:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/streetAddress"
+        android:textSize="22sp"
+        android:layout_alignBaseline="@+id/tripName"
+        android:layout_alignBottom="@+id/tripName"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="18dp" />
+
+    <TextView
+        android:text="Locality: "
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/locality"
+        android:textSize="22sp"
+        android:layout_marginTop="13dp"
+        android:layout_below="@+id/tripName"
+        android:layout_alignStart="@+id/streetAddress" />
+
+    <TextView
+        android:text="Country: "
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/Country"
+        android:textSize="22sp"
+        android:layout_alignTop="@+id/nav"
+        android:layout_alignStart="@+id/locality" />
+
+    <TextView
+        android:text="Postal Code: "
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/postalCode"
+        android:textSize="22sp"
+        android:layout_marginTop="32dp"
+        android:layout_below="@+id/Country"
+        android:layout_alignStart="@+id/Country" />
+
+</RelativeLayout>
